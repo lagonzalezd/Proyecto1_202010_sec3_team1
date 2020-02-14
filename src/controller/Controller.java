@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Scanner;
 
-import model.data_structures.Stack;
+import model.data_structures.Queue;
 import model.logic.Comparendo;
 import model.logic.Modelo;
 import view.View;
@@ -42,13 +42,13 @@ public class Controller {
                     view.printMessage("           ____________________________________________________________________________________________");
                     view.printMessage("          | 1. Cargar Stack ");
                     modelo = new Modelo();
-                    Stack datos1 = modelo.cargarDatos();
+                    Queue datos = modelo.cargarDatos();
                     try {
-                        view.printMessage("          | El primer comparendo de la pila es: " + "\n" + "          | " + datos1.peek().toString());
+                        view.printMessage("          | El primer comparendo de la pila es: " + "\n" + "          | " + datos.peek().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    view.printMessage("          | Numero actual de elementos cargados " + modelo.getElementosCargadosPila());
+                    view.printMessage("          | Numero actual de elementos cargados " + modelo.darDatosCargadosCola());
                     view.printMessage("          |___________________________________________________________________________________________");
                     break;
 
@@ -56,9 +56,9 @@ public class Controller {
                     view.printMessage("           ____________________________________________________________________________________________");
                     view.printMessage("          | 1. Cargar Queue ");
                     modelo = new Modelo();
-                    Stack datos2 = modelo.cargarDatos();
+                    Queue datos2 = modelo.cargarDatos();
                     view.printMessage("          | El primer comparendo de la cola es: " + "\n" + "          | " + datos2.peek().toString());
-                    view.printMessage("          | Numero actual de elementos cargados " + modelo.getElementosCargadosCola());
+                    view.printMessage("          | Numero actual de elementos cargados " + modelo.darDatosCargadosCola());
                     view.printMessage("          |___________________________________________________________________________________________");
                     break;
                 case 7:
@@ -71,8 +71,8 @@ public class Controller {
                     view.printMessage("           ____________________________________________________________________________________________");
                     view.printMessage("          | 3. Buscar grupo cosecutivo mas grande en Queue ");
                     modelo = new Modelo();
-                    Queue<Comparendo> datos3 = modelo.cargarDatosCola();
-                    Queue<Comparendo> datosDevueltos1 = modelo.buscarGrupoMasGrandeCola(datos3);
+                    Queue datos3 = modelo.cargarDatos();
+                    Queue datosDevueltos1 = modelo.buscarGrupoMasGrandeCola(datos3);
                     boolean finCiclo5 = false;
                     while (!finCiclo5) {
                         if (datosDevueltos1.peek() != null) {
@@ -94,15 +94,15 @@ public class Controller {
                     int N = lector.nextInt();
                     view.printMessage("          | -> Ingrese e codigo de comparendo que desea buscar (ej. C02), seguido de Enter: ");
                     String codigo = lector.next();
-                    modelo = new Modelo<Comparendo>();
-                    Stack<Comparendo> datos4 = modelo.cargarDatosPila();
-                    Stack<Comparendo> datosDevueltos2 = modelo.buscarUltimosNPila(datos4, N, codigo);
+                    modelo = new Modelo();
+                    Queue datos4 = modelo.cargarDatos();
+                    Queue datosDevueltos2 = modelo.buscarUltimosNPila(datos4, N, codigo);
                     if (!datosDevueltos2.estaVacia()) {
                         boolean finCiclo4 = false;
                         while (!finCiclo4) {
                             if (datosDevueltos2.peek() != null) {
                                 try {
-                                    view.printMessage("          |" + datosDevueltos2.pop().toString());
+                                    view.printMessage("          |" + datosDevueltos2.deQueue().toString());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -118,13 +118,13 @@ public class Controller {
                 case 5:
                     view.printMessage("           ____________________________________________________________________________________________");
                     view.printMessage("          | 5. Imprimir Stack ");
-                    Stack<Comparendo> datos6 = modelo.cargarDatosPila();
-                    if (!datos6.estaVacia()) {
+                    datos = modelo.cargarDatos();
+                    if (!datos.estaVacia()) {
                         boolean finCiclo4 = false;
                         while (!finCiclo4) {
-                            if (datos6.peek() != null) {
+                            if (datos.peek() != null) {
                                 try {
-                                    view.printMessage("          |" + datos6.pop().toString());
+                                    view.printMessage("          |" + datos.deQueue().toString());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -140,13 +140,13 @@ public class Controller {
                 case 6:
                     view.printMessage("           ____________________________________________________________________________________________");
                     view.printMessage("          | 5. Imprimir Queue ");
-                    Queue<Comparendo> datos7 = modelo.cargarDatosCola();
-                    if (!datos7.estaVacia()) {
+                    datos = modelo.cargarDatos();
+                    if (!datos.estaVacia()) {
                         boolean finCiclo4 = false;
                         while (!finCiclo4) {
-                            if (datos7.peek() != null) {
+                            if (datos.peek() != null) {
                                 try {
-                                    view.printMessage("          |" + datos7.deQueue().toString());
+                                    view.printMessage("          |" + datos.deQueue().toString());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

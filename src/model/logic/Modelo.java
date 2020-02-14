@@ -14,7 +14,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import model.logic.Comparendo;
-import model.data_structures.Stack;
+import model.data_structures.Queue;
 
 /**
  * Definicion del modelo del mundo
@@ -22,12 +22,13 @@ import model.data_structures.Stack;
 public class Modelo {
 
     public static String PATH = "./data/comparendos_dei_2018_small.geojson";
-//	public static String PATH = "./data/comparendos_dei_2018.geojson";
+
+    private Queue datos;
 
 
-    public Stack cargarDatos() {
+    public Queue cargarDatos() {
 
-        Stack datos = new Stack();
+        datos = new Queue();
 
         JsonReader reader;
         try {
@@ -58,7 +59,7 @@ public class Modelo {
                         .get(1).getAsDouble();
 
                 Comparendo c = new Comparendo(OBJECTID, FECHA_HORA, DES_INFRAC, MEDIO_DETE, CLASE_VEHI, TIPO_SERVI, INFRACCION, LOCALIDAD, longitud, latitud);
-                datos.push((Comparable) c);
+                datos.enQueue((Comparable) c);
             }
 
         } catch (FileNotFoundException | ParseException e) {
@@ -68,4 +69,11 @@ public class Modelo {
         return datos;
 
     }
+
+    public int darDatosCargadosCola() {
+        return datos.darLongitud();
+    }
+
+
+
 }
